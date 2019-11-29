@@ -20,22 +20,22 @@ class UserSerializer(ModelSerializer):
 class RequestEMtoODSerializer(ModelSerializer):
     class Meta:
         model = RequestEMtoOD
-        exclude = ('user',)
+        exclude = ('user','status')
 
 
 class RequestEMtoOESerializer(ModelSerializer):
     class Meta:
         model = RequestEMtoOE
-        exclude = ('user',)
+        exclude = ('user','status')
 
 
 class RequestOEtoODSerializer(ModelSerializer):
     class Meta:
         model = RequestOEtoOD
-        exclude = ('user',)
+        exclude = ('user', 'status')
+
 
 class LoginSerilizer(serializers.Serializer):
-
     username = serializers.CharField()
 
     password = serializers.CharField()
@@ -76,10 +76,11 @@ class LoginSerilizer(serializers.Serializer):
 
         return data
 
+
 class Answerserializer(serializers.Serializer):
     ANSWER = [
-        ('true' , 'موافقت با این درخواست'),
-        ('false' , 'رد این  درخواست'),
+        ('true', 'موافقت با این درخواست'),
+        ('false', 'رد این  درخواست'),
     ]
 
     answer = serializers.ChoiceField(ANSWER)
@@ -92,8 +93,16 @@ class Manageserializer(serializers.Serializer):
         ('em', 'کارمند'),  # کارمند
     ]
 
-    profile = serializers.ModelField(model_field=Profile)
+    profile = serializers.IntegerField()
     status = serializers.ChoiceField(STATUS)
+    organization = serializers.IntegerField()
+
+
+class Dutyserializer(ModelSerializer):
+
+    class Meta:
+        model = Duty
+        exclude = ('inscription_time',)
 
 # class PostUpdateSerializer(ModelSerializer):
 #     class Meta:

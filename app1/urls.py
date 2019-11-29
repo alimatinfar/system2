@@ -3,16 +3,40 @@ from . import views
 
 app_name = 'app1'
 urlpatterns = [
-    url(r'^create_profile/$', views.CreateProfile.as_view(), name = 'create_profile'),
-    url(r'^request_emtood/$', views.RequestEMtoODAPIView.as_view(), name = 'request_emtood'),
-    url(r'^request_emtooe/$', views.RequestEMtoOEAPIView.as_view(), name='request_emtooe'),
-    url(r'^request_oetood/$', views.RequestOEtoODAPIView.as_view(), name='request_oetood'),
+    url(r'^create_profile/$', views.CreateProfile.as_view(), name='create_profile'),
+    # ساخت پروفایل
+
+    url(r'^request_emod/$', views.RequestEMtoODAPIView.as_view(), name='request_emod'),
+    # ارسال درخواست ارتقا کامند به مدیر سازمان
+
+    url(r'^request_emoe/$', views.RequestEMtoOEAPIView.as_view(), name='request_emoe'),
+    # ارسال درخواست ارتقا کارمند به کارمند سازمان
+
+    url(r'^request_oeod/$', views.RequestOEtoODAPIView.as_view(), name='request_oeod'),
+    # ارسال درخواست ارتقا کارمند سازمان به مدیر سازمان
     url(r'^inbox/$', views.InboxAPIView.as_view(), name='inbox'),
-    url(r'^deter_emtood/(?P<id>\d+)$', views.DeterminationEMtoODAPIView.as_view(), name='deter_emtood'),
-    url(r'^deter_emtooe/(?P<id>\d+)$', views.DeterminationEMtoOEAPIView.as_view(), name='deter_emtooe'),
-    url(r'^deter_oetood/(?P<id>\d+)$', views.DeterminationOEtoODAPIView.as_view(), name='deter_oetood'),
+    # صندوق جهت مشاهده درخواست های ارتقا برای ادمین و مدیر سازمان
+
+    url(r'^deter_emod/(?P<id>\d+)/$', views.DeterminationEMtoODAPIView.as_view(), name='deter_emod'),
+    #تعیین وضعیت درخواست های ارتقا کارمند به مدیر سازمان توسط ادمین determine
+
+    url(r'^deter_emoe/(?P<id>\d+)/$', views.DeterminationEMtoOEAPIView.as_view(), name='deter_emoe'),
+    # تعیین وضعیت درخواست های ارتقا کارمند به کارمند سازمان توسط ادمین و مدیر سازمان determine
+
+    url(r'^deter_oeod/(?P<id>\d+)/$', views.DeterminationOEtoODAPIView.as_view(), name='deter_oeod'),
+    # تعیین وضعیت درخواست های ارتقا کارمند سازمان به مدیر سازمان توسط ادمین و مدیر سازمان determine
+
     url(r'^login/$', views.Login.as_view(), name='login'),
+    #ورود کاربر
+
     url(r'^manage/$', views.ManageAPIView.as_view(), name='manage'),
+    #مدیریت پروفایل کابران جهت تغییر نقش و سازمان افراد توسط ادمین
+
+    url(r'^create_duty/$', views.DutyCreateAPIView.as_view(), name='create_duty'),
+    #وظیفه
+
+    url(r'^edit_duty/(?P<id>\d+)/$', views.DutyEditAPIView.as_view(), name='edit_duty'),
+    # وظیفه
 
     # url(r'^(?P<id>\d+)/manage$', views.PostDeleteUpdateAPIView.as_view(), name='post-update'),
     # url(r'^create/$', views.PostCreateAPIView.as_view(), name='post-update'),
